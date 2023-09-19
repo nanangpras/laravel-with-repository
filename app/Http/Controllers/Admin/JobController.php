@@ -3,16 +3,24 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\JobService;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
+    protected $jobService;
+
+    public function __construct(JobService $jobService)
+    {
+        $this->jobService = $jobService;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $job = $this->jobService->getAll();
+        return view('pages.jobs.data-job',compact('job'));
     }
 
     /**
@@ -20,7 +28,7 @@ class JobController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.jobs.input-job');
     }
 
     /**
@@ -28,7 +36,15 @@ class JobController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->only([
+            'name',
+            'description',
+            'start_date',
+            'end_date',
+            'job_type_id',
+        ]);
+        $this->jobService->saveData($data);
+        return redirect()->route('job.index')->with('success','Data berhasil ditambahkan');
     }
 
     /**
@@ -44,7 +60,8 @@ class JobController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $edit = $this->jobService->getById($id);
+        return view('pages.jobs.edit-job',compact('edit'));
     }
 
     /**
@@ -52,7 +69,15 @@ class JobController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $data = $request->only([
+            'name',
+            'description',
+            'start_date',
+            'end_date',
+            'job_type_id',
+        ]);
+        $this->jobService->updateData($data,$id);
+        return redirect()->route('job.index')->with('success','Data berhasil diupdate');
     }
 
     /**
@@ -60,6 +85,7 @@ class JobController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $this->jobService->deleteData($id);
+        return redirect()->route('job.index')->with('success','Data berhasil dihapus');
     }
 }

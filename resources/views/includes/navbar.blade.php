@@ -41,7 +41,7 @@
                         Pekerjaan
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Data Pekerjaan</a></li>
+                        <li><a class="dropdown-item" href="{{route('job.index')}}">Data Pekerjaan</a></li>
                         <li><a class="dropdown-item" href="#">Tipe </a></li>
                     </ul>
                 </li>

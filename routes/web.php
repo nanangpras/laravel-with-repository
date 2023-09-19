@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\JobController;
 use App\Http\Controllers\Admin\ProjectController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\UserController;
@@ -21,3 +22,4 @@ Route::get('/', [HomeController::class,'index'])->name('home');
 Route::resource('user',UserController::class);
 Route::resource('client',ClientController::class);
 Route::resource('project',ProjectController::class);
+Route::resource('job',JobController::class);
