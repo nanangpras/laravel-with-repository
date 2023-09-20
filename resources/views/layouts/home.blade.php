@@ -12,6 +12,8 @@
 <body>
     @include('includes.navbar')
     @yield('content')
+    @include('includes.script')
+    @stack('after-scripts')
 </body>
 
 </html>
